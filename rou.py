@@ -29,7 +29,7 @@ def spin(x):
 
     # Randomly sets spin_counter using randint
     global spin_counter
-    spin_counter = random.randint(1, amount_of_slots + x)
+    spin_counter = random.randint(1 + x, amount_of_slots + x)
 
     # Spins amount of times and adds winner to results list
     for spin in range(1, spin_counter + 1):      
@@ -39,16 +39,59 @@ def spin(x):
         Prints out every winner 
         print("Spin: {0} - {1} {2}".format(spin, winner, slots[winner].capitalize()))
         """
+    print("Spin: {0} - {1} {2}".format(spin, winner, slots[winner].capitalize()))
+    print("WINNER: {0} {1}".format(winner, slots[winner].capitalize()))
+    print(f"Amount of Spins: {spin_counter}")
     return winner
 
+
+def resultInfo():
+    """
+    Playing arond with Counter
+    """
+
+    # Counter used with results to diplay more spin infomation
+    counter = Counter(results)
+    """
+    Top one result 
+
+    most_common_slot = counter.most_common(1)
+    print(f"Most Common Number: {most_common_slot}")
+
+    """
+    
+    # Gets top_three most common winners
+    top_three = counter.most_common(3)
+    # print(f"Top Three Numbers: {top_three}")
+
+    """
+    Working on displaying most common result
+    Be it a singular or a max
+    """
+    print(top_three)
+    top_result = top_three[0]
+    print(top_result)
+
+    # Sets Top numbers
+
+    top_number = top_result[0]
+    top_hit = top_result[1]
+
+    for t in top_three:
+        # Breaks down top three into key value pairs
+        number = t[0]
+        hits = t[1]
+
+        """
+        If any value after top_result matches 
+        if Prints, other else kicks in 
+        """
+        if hits >= top_hit:
+            top_hit = hits
+            print(f"Number {number} Hits: {hits}")
+        else:
+            print(f"{number}, {hits} below {top_hit}")
+                    
 winner = spin(10)
 
-print("WINNER: {0} {1}".format(winner, slots[winner].capitalize()))
-print(f"Amount of spins: {spin_counter}")
-
-
-counter = Counter(results)
-most_common_slot = counter.most_common(1)
-top_three = counter.most_common(3)
-print(f"Most Common Number: {most_common_slot}")
-print(f"Top Three Numbers: {top_three}")
+resultInfo()
