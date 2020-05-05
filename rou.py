@@ -46,53 +46,49 @@ def spin(x):
     return winner
 
 
-def resultInfo():
+def getMostCommonNumbers():
     """
-    Playing arond with Counter
+    Using Counter on the most recent results to itarate
+    over winning numbers. Populates "most_commmon_numbers" with
+    results or they can be returned
     """
-    print(results)
 
-    # Counter used with results to diplay more spin infomation
+    # Counter used with results to create a useable dataset
     counter = Counter(results)
+
     """
     Top one result 
-
     most_common_slot = counter.most_common(1)
     print(f"Most Common Number: {most_common_slot}")
 
     Gets top_three most common winners
     top_three = counter.most_common(3)
     print(f"Top Three Numbers: {top_three}")
-    
-    Working on displaying most common result
-    Be it a singular or a max
     """
 
-    # Sets Top numbers
+    # Grabs top third of most common countered numbers
 
     top_segment = counter.most_common(int(spin_counter / 3))
     top_result = top_segment[0]
-    top_number, top_hit = top_result[0], top_result[1]
 
     for t in top_segment:
-        # Breaks down top three into key value pairs
+        # Breaks down top segment into key value pairs
         number = t[0]
         hits = t[1]
 
-        """
-        If any value after top_result matches 
-        if Prints, other else kicks in 
-        """
-        if hits >= top_hit:
-            top_hit = hits
+        # The first instance will always pass the if loop
+        # Allowing a benchmark to be set for the remaining instances
+        if hits >= top_result[1]:
             most_common_numbers.append(number)
         else:
             break
 
     if len(most_common_numbers) == 1:
-        print(f"Most Common Number Is: {most_common_numbers}, with {top_hit} instances")
+        print(f"Most Common Number Is: {most_common_numbers}, with {hits} instances")
     else:
-        print(f"Most Common Numbers Are: {most_common_numbers} with {top_hit} instances")
+        print(f"Most Common Numbers Are: {most_common_numbers} with {hits} instances")
+
+    return most_common_numbers
                     
 winner = spin(10)
-resultInfo()
+numbs = getMostCommonNumbers()
