@@ -16,6 +16,7 @@ slots = {'00': 'green', '0': 'green', '1': 'red', '2': 'black',
          '36': 'black'}
 
 results = []
+most_common_numbers = []
 
 def spin(x):
     """
@@ -49,6 +50,7 @@ def resultInfo():
     """
     Playing arond with Counter
     """
+    print(results)
 
     # Counter used with results to diplay more spin infomation
     counter = Counter(results)
@@ -58,26 +60,21 @@ def resultInfo():
     most_common_slot = counter.most_common(1)
     print(f"Most Common Number: {most_common_slot}")
 
-    """
-    
-    # Gets top_three most common winners
+    Gets top_three most common winners
     top_three = counter.most_common(3)
-    # print(f"Top Three Numbers: {top_three}")
-
-    """
+    print(f"Top Three Numbers: {top_three}")
+    
     Working on displaying most common result
     Be it a singular or a max
     """
-    print(top_three)
-    top_result = top_three[0]
-    print(top_result)
 
     # Sets Top numbers
 
-    top_number = top_result[0]
-    top_hit = top_result[1]
+    top_segment = counter.most_common(int(spin_counter / 3))
+    top_result = top_segment[0]
+    top_number, top_hit = top_result[0], top_result[1]
 
-    for t in top_three:
+    for t in top_segment:
         # Breaks down top three into key value pairs
         number = t[0]
         hits = t[1]
@@ -88,10 +85,14 @@ def resultInfo():
         """
         if hits >= top_hit:
             top_hit = hits
-            print(f"Number {number} Hits: {hits}")
+            most_common_numbers.append(number)
         else:
-            print(f"{number}, {hits} below {top_hit}")
+            break
+
+    if len(most_common_numbers) == 1:
+        print(f"Most Common Number Is: {most_common_numbers}, with {top_hit} instances")
+    else:
+        print(f"Most Common Numbers Are: {most_common_numbers} with {top_hit} instances")
                     
 winner = spin(10)
-
 resultInfo()
