@@ -90,11 +90,13 @@ def getMostCommonNumbers():
         count += 1
 
     if len(most_common_numbers) == 1:
-        print(f"Most Common Number Is: {most_common_numbers}, with {hits} instances")
+        print(f"Most Common Number Is: {most_common_numbers[0]} with {hits} instances")
     else:
-        print(f"Most Common Numbers Are: {most_common_numbers} with {hits} instances")
+        numlist = ', '.join(most_common_numbers)
+        print(f"Most Common Numbers Are: {numlist} with {hits} instances")
 
     return most_common_numbers
+
 
 def getColor(x):
     return slots[x].capitalize()
