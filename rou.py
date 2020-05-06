@@ -83,9 +83,11 @@ def getMostCommonNumbers():
         else:
             break
 
+    count = 0
+
     for n in most_common_numbers:
-        color = getColor(n)
-        print(f"{n} {color}")
+        most_common_numbers[count] = str(n) + " " + getColor(n)
+        count += 1
 
     if len(most_common_numbers) == 1:
         print(f"Most Common Number Is: {most_common_numbers}, with {hits} instances")
