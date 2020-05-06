@@ -83,12 +83,19 @@ def getMostCommonNumbers():
         else:
             break
 
+    for n in most_common_numbers:
+        color = getColor(n)
+        print(f"{n} {color}")
+
     if len(most_common_numbers) == 1:
         print(f"Most Common Number Is: {most_common_numbers}, with {hits} instances")
     else:
         print(f"Most Common Numbers Are: {most_common_numbers} with {hits} instances")
 
     return most_common_numbers
+
+def getColor(x):
+    return slots[x].capitalize()
                     
 winner = spin(10)
 numbs = getMostCommonNumbers()
