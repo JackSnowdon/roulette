@@ -15,8 +15,6 @@ slots = {'00': 'green', '0': 'green', '1': 'red', '2': 'black',
          '32': 'black', '33': 'red', '34': 'black', '35': 'red',
          '36': 'black'}
 
-results = []
-most_common_numbers = []
 
 def spin(x):
     """
@@ -97,9 +95,27 @@ def getMostCommonNumbers():
 
     return most_common_numbers
 
+running = True
 
 def getColor(x):
     return slots[x].capitalize()
-                    
-winner = spin(10)
-numbs = getMostCommonNumbers()
+
+
+def checkWinner(c):
+    if getColor(winner) == c:
+        print("You Win!")
+    else:
+        print("You Lose!")
+
+
+while running == True:
+    results = []
+    most_common_numbers = []
+    choice = input("red, black or green?: ").capitalize()
+    winner = spin(10)
+    numbs = getMostCommonNumbers()
+    checkWinner(choice)
+    repeat = input("Press Anything to play again, or type quit to leave: ")
+    if repeat == "quit":
+        running = False
+        
