@@ -109,8 +109,19 @@ def getUserChoice():
     """
     Uses input to obtain user choice
     """
+    number_choices = list(slots.keys())
+    print(number_choices)
     color_choices = {'red', 'black', 'green'}
     choice = input("red, black or green?: ")
+    print("")
+
+    if choice in number_choices:
+        print("hit!")
+    
+    """
+    working on checking numbers
+    """
+    
     if choice not in color_choices:
         print("Invalid Input, try again: ")
         return getUserChoice()
@@ -140,6 +151,7 @@ while running == True:
     #getMostCommonNumbers()
     print("")
     checkColorWinner(choice)
+    print("")
     repeat = input("Press Any Key to play again, or type q to leave: ")
     if repeat == "q":
         running = False
