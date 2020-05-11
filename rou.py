@@ -19,7 +19,7 @@ slots = {'00': 'green', '0': 'green', '1': 'red', '2': 'black',
 def spin(x):
     """
     Spins Roulette wheel a random number of times
-    Returns winning slot but also fills results 
+    Returns winning slot and fills results 
     for all slots landed on
 
     paramater: int for how many spins
@@ -38,9 +38,9 @@ def spin(x):
         Prints out every winner 
         print("Spin: {0} - {1} {2}".format(spin, winner, slots[winner].capitalize()))
         """
-    print("Spin: {0} - {1} {2}".format(spin, winner, slots[winner].capitalize()))
+    print("Spin {0}: - {1} {2}".format(spin, winner, slots[winner].capitalize()))
     print("WINNER: {0} {1}".format(winner, slots[winner].capitalize()))
-    print(f"Amount of Spins: {spin_counter}")
+    # print(f"Amount of Spins: {spin_counter}")
     return winner
 
 
@@ -95,27 +95,51 @@ def getMostCommonNumbers():
 
     return most_common_numbers
 
-running = True
 
 def getColor(x):
+    """
+    Returns color value of int from slots
+
+    parameters: int
+    """
     return slots[x].capitalize()
 
 
-def checkWinner(c):
-    if getColor(winner) == c:
+def getUserChoice():
+    """
+    Uses input to obtain user choice
+    """
+    color_choices = {'red', 'black', 'green'}
+    choice = input("red, black or green?: ")
+    if choice not in color_choices:
+        print("Invalid Input, try again: ")
+        return getUserChoice()
+    else:
+        return choice.capitalize()
+
+
+def checkColorWinner(choice):
+    """
+    Checks user input guess and returns win/lose result
+
+    parameters: str 
+    """
+    if getColor(winner) == choice:
         print("You Win!")
     else:
         print("You Lose!")
 
 
+running = True
+
 while running == True:
     results = []
     most_common_numbers = []
-    choice = input("red, black or green?: ").capitalize()
+    choice = getUserChoice()
     winner = spin(10)
-    numbs = getMostCommonNumbers()
-    checkWinner(choice)
-    repeat = input("Press Anything to play again, or type quit to leave: ")
-    if repeat == "quit":
+    #getMostCommonNumbers()
+    print("")
+    checkColorWinner(choice)
+    repeat = input("Press Any Key to play again, or type q to leave: ")
+    if repeat == "q":
         running = False
-        
