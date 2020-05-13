@@ -109,17 +109,20 @@ def getUserChoice():
     """
     Uses input to obtain user choice
     """
-    number_choices = list(slots.keys())
-    print(number_choices)
+    
     color_choices = {'red', 'black', 'green'}
+
     choice = input("red, black or green?: ")
     print("")
-
-    if choice in number_choices:
-        print("hit!")
     
     """
     working on checking numbers
+
+    number_choices = list(slots.keys())
+    print(number_choices)
+    if choice in number_choices:
+        print("hit!")
+        print(slots[choice])
     """
     
     if choice not in color_choices:
@@ -129,29 +132,54 @@ def getUserChoice():
         return choice.capitalize()
 
 
-def checkColorWinner(choice):
+def checkColorWinner(choice, bet):
     """
     Checks user input guess and returns win/lose result
 
     parameters: str 
     """
     if getColor(winner) == choice:
-        print("You Win!")
+        winnings = bet * 2
+        user.coins += winnings
+        print(f"You Win {winnings} Coins")
     else:
         print("You Lose!")
+    print(f"Coins left: {user.coins}")
 
 
+def placeBet():
+    """
+    Returns int of amount of coints bet
+    """
+    print(f"Coins: {user.coins}")
+    amount = int(input("How much do you want to bet?: "))
+    if amount <= user.coins:
+        user.coins -= amount
+        return amount
+    else:
+        print("You dont have enough coins")
+        return placeBet()
+
+
+class Player:
+    coins = 100
+
+user = Player()
 running = True
+
 
 while running == True:
     results = []
     most_common_numbers = []
+
     choice = getUserChoice()
+    bet = placeBet()
     winner = spin(10)
-    #getMostCommonNumbers()
+
     print("")
-    checkColorWinner(choice)
+    checkColorWinner(choice, bet)
     print("")
+
     repeat = input("Press Any Key to play again, or type q to leave: ")
     if repeat == "q":
         running = False
