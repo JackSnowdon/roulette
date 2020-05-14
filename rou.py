@@ -3,23 +3,53 @@ from collections import Counter
 
 global slots
 
-# Tradional Roulette Slots 
-slots = {'00': 'green', '0': 'green', '1': 'red', '2': 'black',
-         '3': 'red', '4': 'black', '5': 'red', '6': 'black', '7': 'red',
-         '8': 'black', '9': 'red', '10': 'black', '11': 'red',
-         '12': 'black', '13': 'red', '14': 'black', '15': 'red',
-         '16': 'black', '17': 'red', '18': 'black', '19': 'red',
-         '20': 'black', '21': 'red', '22': 'black', '23': 'red',
-         '24': 'black', '25': 'red', '26': 'black', '27': 'red',
-         '28': 'black', '29': 'red', '30': 'black', '31': 'red',
-         '32': 'black', '33': 'red', '34': 'black', '35': 'red',
-         '36': 'black'}
+# Tradional Roulette Slots
+slots = {
+    "00": "green",
+    "0": "green",
+    "1": "red",
+    "2": "black",
+    "3": "red",
+    "4": "black",
+    "5": "red",
+    "6": "black",
+    "7": "red",
+    "8": "black",
+    "9": "red",
+    "10": "black",
+    "11": "red",
+    "12": "black",
+    "13": "red",
+    "14": "black",
+    "15": "red",
+    "16": "black",
+    "17": "red",
+    "18": "black",
+    "19": "red",
+    "20": "black",
+    "21": "red",
+    "22": "black",
+    "23": "red",
+    "24": "black",
+    "25": "red",
+    "26": "black",
+    "27": "red",
+    "28": "black",
+    "29": "red",
+    "30": "black",
+    "31": "red",
+    "32": "black",
+    "33": "red",
+    "34": "black",
+    "35": "red",
+    "36": "black",
+}
 
 
 def spin(x):
     """
     Spins Roulette wheel a random number of times
-    Returns winning slot and fills results 
+    Returns winning slot and fills results
     for all slots landed on
 
     paramater: int for how many spins
@@ -31,14 +61,15 @@ def spin(x):
     spin_counter = random.randint(1 + x, amount_of_slots + x)
 
     # Spins amount of times and adds winner to results list
-    for spin in range(1, spin_counter + 1):      
+    for spin in range(1, spin_counter + 1):
         winner = random.choice(list(slots.keys()))
         results.append(winner)
         """
-        Prints out every winner 
+        Prints out every winner
         print("Spin: {0} - {1} {2}".format(spin, winner, slots[winner].capitalize()))
         """
-    print("Spin {0}: - {1} {2}".format(spin, winner, slots[winner].capitalize()))
+    print("Spin {0}: - {1} {2}".format(spin,
+    winner, slots[winner].capitalize()))
     print("WINNER: {0} {1}".format(winner, slots[winner].capitalize()))
     # print(f"Amount of Spins: {spin_counter}")
     return winner
@@ -55,7 +86,7 @@ def getMostCommonNumbers():
     counter = Counter(results)
 
     """
-    Top one result 
+    Top one result
     most_common_slot = counter.most_common(1)
     print(f"Most Common Number: {most_common_slot}")
 
@@ -90,7 +121,7 @@ def getMostCommonNumbers():
     if len(most_common_numbers) == 1:
         print(f"Most Common Number Is: {most_common_numbers[0]} with {hits} instances")
     else:
-        numlist = ', '.join(most_common_numbers)
+        numlist = ", ".join(most_common_numbers)
         print(f"Most Common Numbers Are: {numlist} with {hits} instances")
 
     return most_common_numbers
@@ -109,11 +140,11 @@ def getUserChoice():
     """
     Uses input to obtain user choice
 
-    Returns capitaliszed if str (color choice) 
+    Returns capitaliszed if str (color choice)
     or as an in (number choice)
     """
-    
-    color_choices = {'red', 'black', 'green'}
+
+    color_choices = {"red", "black", "green"}
     number_choices = list(slots.keys())
 
     choice = input("Pick a number between 00-36, or red, black or green?: ")
@@ -181,6 +212,7 @@ def checkIfBroke(c):
 class Player:
     coins = 100
 
+
 user = Player()
 running = True
 
@@ -203,6 +235,6 @@ while running == True:
         break
 
     repeat = input("Press Any Key to play again, or type q to leave: ")
-    
+
     if repeat == "q":
         running = False
