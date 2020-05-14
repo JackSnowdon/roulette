@@ -132,6 +132,20 @@ def getUserChoice():
         return choice.capitalize()
 
 
+def placeBet():
+    """
+    Returns int of amount of coints bet
+    """
+    print(f"Coins: {user.coins}")
+    amount = int(input("How much do you want to bet?: "))
+    if amount <= user.coins:
+        user.coins -= amount
+        return amount
+    else:
+        print("You dont have enough coins")
+        return placeBet()
+
+
 def checkColorWinner(choice, bet):
     """
     Checks user input guess and returns win/lose result
@@ -147,18 +161,12 @@ def checkColorWinner(choice, bet):
     print(f"Coins left: {user.coins}")
 
 
-def placeBet():
+def checkIfBroke(c):
     """
-    Returns int of amount of coints bet
+    Checks if user coins is 0
     """
-    print(f"Coins: {user.coins}")
-    amount = int(input("How much do you want to bet?: "))
-    if amount <= user.coins:
-        user.coins -= amount
-        return amount
-    else:
-        print("You dont have enough coins")
-        return placeBet()
+    if c == 0:
+        return True
 
 
 class Player:
@@ -180,6 +188,12 @@ while running == True:
     checkColorWinner(choice, bet)
     print("")
 
+    if checkIfBroke(user.coins):
+        running = False
+        print("You're broke, Game Over!")
+        break
+
     repeat = input("Press Any Key to play again, or type q to leave: ")
+    
     if repeat == "q":
         running = False
