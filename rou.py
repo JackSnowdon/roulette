@@ -165,10 +165,15 @@ def placeBet():
     Returns int of amount of coints bet
     """
     print(f"Coins: {user.coins}")
-    amount = int(input("How much do you want to bet?: "))
+    try:
+        amount = int(input("How much do you want to bet?: "))
+    except:
+        print("Invalid input, try again: ")
+        return placeBet()
+        
     if amount <= user.coins:
         user.coins -= amount
-        print(f"{amount} coins bet on {choice}")
+        print(f"{amount} Coins bet on {choice}")
         return amount
     else:
         print("You dont have enough coins")
@@ -184,8 +189,12 @@ def checkWinner(choice, bet):
     parameters: choice(int/str), bet(int)
     """
     if type(choice) == str:
-        if getColor(winner) == choice:
-            winnings = bet * 2
+        string_winner = getColor(winner)
+        if string_winner == choice:
+            if string_winner == "Green":
+                winnings = bet * 5
+            else:
+                winnings = bet * 2
             user.coins += winnings
             print(f"You Win {winnings} Coins")
         else:
