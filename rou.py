@@ -108,28 +108,25 @@ def getColor(x):
 def getUserChoice():
     """
     Uses input to obtain user choice
+
+    Returns capitaliszed if str (color choice) 
+    or as an in (number choice)
     """
     
     color_choices = {'red', 'black', 'green'}
-
-    choice = input("red, black or green?: ")
-    print("")
-    
-    """
-    working on checking numbers
-
     number_choices = list(slots.keys())
-    print(number_choices)
-    if choice in number_choices:
-        print("hit!")
-        print(slots[choice])
-    """
-    
-    if choice not in color_choices:
+
+    choice = input("Pick a number between 00-36, or red, black or green?: ")
+    print("")
+
+    if choice not in color_choices and choice not in number_choices:
         print("Invalid Input, try again: ")
         return getUserChoice()
     else:
-        return choice.capitalize()
+        if choice in color_choices:
+            return choice.capitalize()
+        else:
+            return int(choice)
 
 
 def placeBet():
@@ -140,24 +137,36 @@ def placeBet():
     amount = int(input("How much do you want to bet?: "))
     if amount <= user.coins:
         user.coins -= amount
+        print(f"{amount} coins bet on {choice}")
         return amount
     else:
         print("You dont have enough coins")
         return placeBet()
 
 
-def checkColorWinner(choice, bet):
+def checkWinner(choice, bet):
     """
-    Checks user input guess and returns win/lose result
+    Checks user input guess and sets winnings
+    first parameter is set via getUserChoice
+    and type will decide flow
 
-    parameters: str 
+    parameters: choice(int/str), bet(int)
     """
-    if getColor(winner) == choice:
-        winnings = bet * 2
-        user.coins += winnings
-        print(f"You Win {winnings} Coins")
+    if type(choice) == str:
+        if getColor(winner) == choice:
+            winnings = bet * 2
+            user.coins += winnings
+            print(f"You Win {winnings} Coins")
+        else:
+            print("You Lose!")
     else:
-        print("You Lose!")
+        print(winner, choice)
+        if int(winner) == choice:
+            winnings = bet * 10
+            user.coins += winnings
+            print(f"You Win {winnings} Coins")
+        else:
+            print("You Lose!")
     print(f"Coins left: {user.coins}")
 
 
@@ -185,7 +194,7 @@ while running == True:
     winner = spin(10)
 
     print("")
-    checkColorWinner(choice, bet)
+    checkWinner(choice, bet)
     print("")
 
     if checkIfBroke(user.coins):
